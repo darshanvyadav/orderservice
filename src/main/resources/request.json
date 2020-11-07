@@ -1,0 +1,40 @@
+{
+  "OrderDetails": {
+    "order_id": "",
+    "order_status": "new",
+    "order_customer_id": 1234,
+    "shipping_method": "delivery",
+    "billing_address_id": "",
+    "Shipping_address_id": "",
+    "items": [{"item_id": 1, "item_name": "orange"}, {"item_id": 2, "item_name": "apple"}, {"item_id": 3, "item_name": "mango"}]
+  },
+  "OrderPaymentDetails": {
+      "payment_id" : "",
+      "subtotal" : 345,
+      "tax" : 12,
+      "total" : 357,
+      "payment_method" : "credit card",
+      "payment_date"  : "",
+      "OrderPaymnetTransaction": [
+          {"transaction_id" : "", "name_on_card" : "Darshan", "card_number" : "1234123412341234", "expiry_date" : "08/09/2022" , "cvv" : 123, "deduction_amount" : 300},
+          {"transaction_id" : "", "name_on_card" : "Yadav" , "card_number" : "7890789078907890" , "expiry_date" : "09/08/2032", "cvv" : 789, "deduction_amount" : 45}
+      ]
+  },
+  "OrderShippingAddress" : {
+      "Shipping_address_id " : "" ,
+      "shipping_addressline1" : "6522 lakeview blvd apt 13113", 
+      "shipping_addressline2 " : "", 
+      "shipping_city " : "Westland", 
+      "shipping_state" : "Michigan", 
+      "shipping_zip" : "48185"
+  },
+    "OrderBillingAddress" : {
+      "billing_address_id " : "" ,
+      "billing_addressline1" : "6522 lakeview blvd apt 13113", 
+      "billing_addressline2 " : "", 
+      "billing_city " : "Westland", 
+      "billing_state" : "Michigan", 
+      "billing_zip" : "48185"
+  }
+
+}

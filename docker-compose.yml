@@ -1,0 +1,19 @@
+version: '3.1'
+services:
+  app:
+    container_name: orderservice
+    image: orderservice
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresqldb
+  postgresqldb:
+    image: postgres
+    #container_name: postgresqldb
+    environment:
+      - POSTGRES_PASSWORD=Postgres
+      - POSTGRES_USER=Postgres
+      - POSTGRES_DB=orderservicedb
+    ports:
+      - "5432:5432" 
