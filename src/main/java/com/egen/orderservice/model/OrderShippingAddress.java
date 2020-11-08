@@ -1,7 +1,6 @@
 package com.egen.orderservice.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -23,21 +23,24 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "OrderShippingAddress")
 public class OrderShippingAddress {
 
 	@Id
 	@GeneratedValue
-	private UUID Shipping_address_id;
+	private UUID ShippingAddressId;
 	
-	private String shipping_addressline1;
+	private String ShippingAddressName;
 	
-	private String shipping_addressline2;
+	private String shippingAddressLine1;
 	
-	private String shipping_city;
+	private String shippingAddressLine2;
 	
-	private String shipping_state;
+	private String shippingCity;
 	
-	private Integer shipping_zip;
+	private String shippingState;
+	
+	private Integer shippingZip;
 	
 	@CreationTimestamp
 	private LocalDateTime createTime;
@@ -45,9 +48,9 @@ public class OrderShippingAddress {
 	@UpdateTimestamp
 	private LocalDateTime updatedTime;
 	
-	private String created_by = "java application";
+	private String createdBy = "java application";
 	
-	private String modified_by = "java application";
+	private String modifiedBy = "java application";
 	
 	@OneToMany(mappedBy = "orderShippingAddress")
 	private List<OrderDetails> orderDetails ;

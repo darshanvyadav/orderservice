@@ -1,7 +1,6 @@
 package com.egen.orderservice.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,9 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,22 +25,22 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Table(name = "OrderBillingAddress")
 public class OrderBillingAddress {
 	
 	@Id
 	@GeneratedValue
-	private UUID billing_address_id;
+	private UUID billingAddressId;
 	
-	private String billing_addressline1;
+	private String billingAddressLine1;
 	
-	private String billing_addressline2;
+	private String billingAddressLine2;
 	
-	private String billing_city;
+	private String billingCity;
 	
-	private String billing_state;
+	private String billingState;
 	
-	private Integer billing_zip;
+	private Integer billingZip;
 	
 	@CreationTimestamp
 	private LocalDateTime createTime;
@@ -45,11 +48,13 @@ public class OrderBillingAddress {
 	@UpdateTimestamp
 	private LocalDateTime updatedTime;
 	
-	private String created_by = "java application";
+	private String createdBy = "java application";
 	
-	private String modified_by = "java application";
+	private String modifiedBy = "java application";
 	
 	@OneToMany(mappedBy = "orderBillingAddress")
 	private List<OrderDetails> orderDetails ;
+	
+
 
 }

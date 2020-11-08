@@ -2,7 +2,6 @@ package com.egen.orderservice.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.UUID;
 
 import javax.persistence.Entity;
@@ -11,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -25,21 +25,22 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "OrderPaymnetTransaction")
 public class OrderPaymnetTransaction {
 
 	@Id
 	@GeneratedValue
-	private UUID transaction_id;
+	private UUID transactionId;
 	
-	private String name_on_card;
+	private String nameOnCard;
 	
-	private String card_number;
+	private String cardNumber;
 	
-	private LocalDate expiry_date;
+	private String expiryDate;
 	
 	private String cvv;
 	
-	private Integer deduction_amount;
+	private Integer deductionAmount;
 	
 	@CreationTimestamp
 	private LocalDateTime createTime;
@@ -47,9 +48,9 @@ public class OrderPaymnetTransaction {
 	@UpdateTimestamp
 	private LocalDateTime updatedTime;
 	
-	private String created_by = "java application";
+	private String createdBy = "java application";
 	
-	private String modified_by = "java application";
+	private String modifiedBy = "java application";
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "payment_id", insertable = false, updatable = false )

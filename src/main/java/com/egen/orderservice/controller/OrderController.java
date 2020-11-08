@@ -1,21 +1,43 @@
 package com.egen.orderservice.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.egen.orderservice.dto.OrderRequest;
+import com.egen.orderservice.model.OrderDetails;
+import com.egen.orderservice.model.OrderRequest;
+import com.egen.orderservice.service.OrderService;
 
-@RestController
+@CrossOrigin()
+@RestController()
 public class OrderController {
-
 	
-	@PostMapping(value = "/order/create")
-	public String orderController(@RequestBody OrderRequest orderRequest) {
-		
-		
-		System.out.println(orderRequest.toString());
-		
-		return "Test";
+	
+	@Autowired
+	private OrderService orderService;
+
+	@PostMapping(value = "createorder")
+	public OrderDetails createOrder(@RequestBody OrderRequest orderRequest) {
+		OrderDetails createdOrder = orderService.createOrder(orderRequest);
+		return createdOrder;
 	}
+	
+	@GetMapping(value = "/orderById/{orderID}")
+	public OrderRequest getOrderByID(@RequestBody OrderRequest orderRequest) {
+		OrderDetails createdOrder = orderService.createOrder(orderRequest);
+		return null;
+	}
+	
+	@GetMapping(value = "/ordersbycustomer/{customerId}")
+	public List<OrderDetails> getOrdersByCustomer(@RequestBody OrderRequest orderRequest) {
+		OrderDetails createdOrder = orderService.createOrder(orderRequest);
+		return null;
+	}
+	
+	
 }

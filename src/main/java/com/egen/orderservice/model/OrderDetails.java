@@ -1,8 +1,7 @@
 package com.egen.orderservice.model;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
@@ -14,44 +13,48 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Table(name = "OrderDetails")
 public class OrderDetails {
 
 	@Id
 	@GeneratedValue
-	private UUID order_id;
+	private UUID orderId;
 	
-	private String order_status;
+	@JsonProperty("orderStatus")
+	private String orderStatus;
 	
-	private Long order_customer_id;
+	private String orderCustomerId;
 	
-	private String shipping_method;
+	private String shippingMethod;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "orderDetails")
-	private List<OrderItemDetails> items = new ArrayList<OrderItemDetails>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
+	private Set<OrderItemDetails> items;
 	
 	@OneToOne(mappedBy = "orderDetails", cascade = CascadeType.ALL)
     private OrderPaymentDetails orderPaymentDetails;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name = "billing_address_id")
+	@JoinColumn(name = "billingAddressId")
 	private OrderBillingAddress orderBillingAddress;
 	
 	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "Shipping_address_id")
+	@JoinColumn(name = "ShippingAddressId")
 	private OrderShippingAddress orderShippingAddress;
 	
 	@CreationTimestamp
@@ -60,8 +63,10 @@ public class OrderDetails {
 	@UpdateTimestamp
 	private LocalDateTime updatedTime;
 	
-	private String created_by = "java application";
+	private String createdBy = "java application";
 	
-	private String modified_by = "java application";
+	private String modifiedBy = "java application";
+	
+	
 	
 }

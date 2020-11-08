@@ -2,18 +2,18 @@ package com.egen.orderservice.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -29,10 +29,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "OrderPaymentDetails")
 public class OrderPaymentDetails {
 
 	@Id
-	private UUID payment_id;
+	@GeneratedValue
+	private UUID paymentId;
 	
 	private Integer subtotal;
 	
@@ -40,10 +42,10 @@ public class OrderPaymentDetails {
 	
 	private Integer total;
 	
-	private String payment_method;
+	private String paymentMethod;
 	
 	@CreatedDate
-	private LocalDate payment_date;
+	private LocalDate paymentDate;
 	
 	@CreationTimestamp
 	private LocalDateTime createTime;
@@ -51,16 +53,16 @@ public class OrderPaymentDetails {
 	@UpdateTimestamp
 	private LocalDateTime updatedTime;
 	
-	private String created_by = "java application";
+	private String createdBy = "java application";
 	
-	private String modified_by = "java application";
+	private String modifiedBy = "java application";
 	
     @OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "order_id", insertable = false, updatable = false)
-	@MapsId
+	@JoinColumn(name = "orderId", insertable = false, updatable = false)
+	//@MapsId
 	private OrderDetails orderDetails;
 	
 	@OneToMany(mappedBy = "orderPaymentDetails", cascade = CascadeType.ALL)
-	private List<OrderPaymnetTransaction> orderPaymnetTransaction ;
+	private Set<OrderPaymnetTransaction> orderPaymnetTransaction ;
 
 }
