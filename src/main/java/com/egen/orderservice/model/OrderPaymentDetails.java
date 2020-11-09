@@ -17,6 +17,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,6 +34,7 @@ public class OrderPaymentDetails {
 
 	@Id
 	@GeneratedValue
+	@JsonIgnore
 	private UUID paymentId;
 	
 	private Integer subtotal;
@@ -43,16 +46,21 @@ public class OrderPaymentDetails {
 	private String paymentMethod;
 	
 	@CreatedDate
+	@JsonIgnore
 	private LocalDate paymentDate;
 	
 	@CreationTimestamp
+	@JsonIgnore
 	private LocalDateTime createTime;
 	
 	@UpdateTimestamp
+	@JsonIgnore
 	private LocalDateTime updatedTime;
 	
+	@JsonIgnore
 	private String createdBy = "java application";
 	
+	@JsonIgnore
 	private String modifiedBy = "java application";
 
 //	@OneToOne()

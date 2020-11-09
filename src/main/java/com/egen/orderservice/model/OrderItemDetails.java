@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class OrderItemDetails {
 
 	@Id
 	@GeneratedValue
+	@JsonIgnore
 	private UUID itemId;
 
 	private String itemName;
@@ -32,14 +35,17 @@ public class OrderItemDetails {
 	
 	private String itemDescription;
 	
+	@JsonIgnore
 	@CreationTimestamp
 	private LocalDateTime createTime;
 	
+	@JsonIgnore
 	@UpdateTimestamp
 	private LocalDateTime updatedTime;
 	
+	@JsonIgnore
 	private String createdBy = "java application";
-	
+	@JsonIgnore
 	private String modifiedBy = "java application";
 	
 

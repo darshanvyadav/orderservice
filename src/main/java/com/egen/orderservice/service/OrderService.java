@@ -47,9 +47,7 @@ public class OrderService {
 	}
 
 	public List<OrderDetails> getOrdersByCustomerID(String customerId) {
-		List<OrderDetails> findByOrderCustomerId = orderDetailsRepository.findByOrderCustomerId(customerId);
-		System.out.println(findByOrderCustomerId.size());
-		return findByOrderCustomerId;
+		return orderDetailsRepository.findByOrderCustomerId(customerId);
 	}
 
 }

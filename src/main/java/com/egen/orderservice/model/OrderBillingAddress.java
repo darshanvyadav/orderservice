@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,7 +31,10 @@ public class OrderBillingAddress {
 	
 	@Id
 	@GeneratedValue
+	@JsonIgnore
 	private UUID billingAddressId;
+	
+	private String billingAddressName;
 	
 	private String billingAddressLine1;
 	
@@ -43,13 +47,17 @@ public class OrderBillingAddress {
 	private Integer billingZip;
 	
 	@CreationTimestamp
+	@JsonIgnore
 	private LocalDateTime createTime;
 	
 	@UpdateTimestamp
+	@JsonIgnore
 	private LocalDateTime updatedTime;
 	
+	@JsonIgnore
 	private String createdBy = "java application";
 	
+	@JsonIgnore
 	private String modifiedBy = "java application";
 	
 	/*

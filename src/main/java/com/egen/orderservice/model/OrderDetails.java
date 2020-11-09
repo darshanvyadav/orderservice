@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -37,7 +38,6 @@ public class OrderDetails {
 	@GeneratedValue
 	private UUID orderId;
 	
-	@JsonProperty("orderStatus")
 	private String orderStatus;
 	
 	private String orderCustomerId;
@@ -65,13 +65,17 @@ public class OrderDetails {
 	private Set<OrderPaymnetTransaction> orderPaymnetTransaction ;
 	
 	@CreationTimestamp
+	@JsonIgnore
 	private LocalDateTime createTime;
 	
 	@UpdateTimestamp
+	@JsonIgnore
 	private LocalDateTime updatedTime;
 	
+	@JsonIgnore
 	private String createdBy = "java application";
 	
+	@JsonIgnore
 	private String modifiedBy = "java application";
 	
 	@Override

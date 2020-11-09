@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +32,7 @@ public class OrderPaymnetTransaction {
 
 	@Id
 	@GeneratedValue
+	@JsonIgnore
 	private UUID transactionId;
 	
 	private String nameOnCard;
@@ -43,13 +46,17 @@ public class OrderPaymnetTransaction {
 	private Integer deductionAmount;
 	
 	@CreationTimestamp
+	@JsonIgnore
 	private LocalDateTime createTime;
 	
 	@UpdateTimestamp
+	@JsonIgnore
 	private LocalDateTime updatedTime;
 	
+	@JsonIgnore
 	private String createdBy = "java application";
 	
+	@JsonIgnore
 	private String modifiedBy = "java application";
 	
 //	@ManyToOne(fetch = FetchType.LAZY)
