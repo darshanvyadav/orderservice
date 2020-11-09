@@ -2,10 +2,8 @@ package com.egen.orderservice.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Set;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -56,10 +54,10 @@ public class OrderPaymentDetails {
 	private String createdBy = "java application";
 	
 	private String modifiedBy = "java application";
-	
-    @OneToOne(mappedBy = "orderPaymentDetails")
-	private OrderDetails orderDetails;
-	
+
+//	@OneToOne()
+//	@JoinColumn(name = "FK_oder_ID")
+//	private OrderDetails OrderDetails;
 
 
 }

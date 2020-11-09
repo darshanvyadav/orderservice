@@ -52,8 +52,10 @@ public class OrderShippingAddress {
 	
 	private String modifiedBy = "java application";
 	
-	@OneToMany(mappedBy = "orderShippingAddress")
-	private List<OrderDetails> orderDetails ;
+	/*
+	 * @OneToMany(mappedBy = "orderShippingAddress") private List<OrderDetails>
+	 * orderDetails ;
+	 */
 	
 
 }

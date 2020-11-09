@@ -19,6 +19,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -43,7 +45,7 @@ public class OrderDetails {
 	private String shippingMethod;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
+	@JoinColumn(name = "FK_Items_ID", referencedColumnName = "orderId")
 	private Set<OrderItemDetails> items;
 	
 	@OneToOne( cascade = CascadeType.ALL)
@@ -54,12 +56,12 @@ public class OrderDetails {
 	@JoinColumn(name = "billingAddressId")
 	private OrderBillingAddress orderBillingAddress;
 	
-	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name = "ShippingAddressId")
 	private OrderShippingAddress orderShippingAddress;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "orderId",  referencedColumnName = "orderId" )
+	@JoinColumn(name = "FK_Transaction_ID",  referencedColumnName = "orderId" )
 	private Set<OrderPaymnetTransaction> orderPaymnetTransaction ;
 	
 	@CreationTimestamp
@@ -72,6 +74,15 @@ public class OrderDetails {
 	
 	private String modifiedBy = "java application";
 	
+	@Override
+	public String toString() {
+	      ObjectMapper mapper = new ObjectMapper();
+	      try {
+			return mapper.writeValueAsString(this);
+		} catch (JsonProcessingException e) {
+			return "error converting object in to string";
+		}
+	}
 	
 	
 }
