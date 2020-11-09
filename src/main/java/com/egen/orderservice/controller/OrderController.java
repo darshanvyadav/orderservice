@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.egen.orderservice.dto.OrderRequest;
 import com.egen.orderservice.model.OrderDetails;
-import com.egen.orderservice.model.OrderRequest;
 import com.egen.orderservice.service.OrderService;
 
 @CrossOrigin()

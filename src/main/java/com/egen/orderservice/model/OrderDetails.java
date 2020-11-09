@@ -46,7 +46,8 @@ public class OrderDetails {
 	@JoinColumn(name = "orderId", referencedColumnName = "orderId")
 	private Set<OrderItemDetails> items;
 	
-	@OneToOne(mappedBy = "orderDetails", cascade = CascadeType.ALL)
+	@OneToOne( cascade = CascadeType.ALL)
+	@JoinColumn(name = "paymentId")
     private OrderPaymentDetails orderPaymentDetails;
 	
 	@ManyToOne(cascade=CascadeType.ALL)
@@ -56,6 +57,10 @@ public class OrderDetails {
 	@ManyToOne(cascade=CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ShippingAddressId")
 	private OrderShippingAddress orderShippingAddress;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "orderId",  referencedColumnName = "orderId" )
+	private Set<OrderPaymnetTransaction> orderPaymnetTransaction ;
 	
 	@CreationTimestamp
 	private LocalDateTime createTime;

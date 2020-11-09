@@ -57,12 +57,9 @@ public class OrderPaymentDetails {
 	
 	private String modifiedBy = "java application";
 	
-    @OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "orderId", insertable = false, updatable = false)
-	//@MapsId
+    @OneToOne(mappedBy = "orderPaymentDetails")
 	private OrderDetails orderDetails;
 	
-	@OneToMany(mappedBy = "orderPaymentDetails", cascade = CascadeType.ALL)
-	private Set<OrderPaymnetTransaction> orderPaymnetTransaction ;
+
 
 }

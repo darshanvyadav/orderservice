@@ -1,0 +1,18 @@
+{
+    "orderStatus": "new",
+    "orderCustomerId": "1234",
+    "shippingMethod": "delivery",   
+    "items": [{"itemName": "orange"}, {"itemName": "apple"}, { "itemName": "mango"}],
+    "orderPaymentDetails": {
+      "subtotal" : 345,
+      "tax" : 12,
+      "total" : 357,
+      "paymentMethod" : "credit card",
+      "orderPaymnetTransaction": [
+          { "nameOnCard" : "Darshan", "cardNumber" : "1234123412341234", "expiryDate" : "08/09/2022" , "cvv" : 123, "deductionAmount" : 300},
+          { "nameOnCard" : "Yadav" , "cardNumber" : "7890789078907890" , "expiryDate" : "09/08/2032", "cvv" : 789, "deductionAmount" : 45}
+      ]
+     },
+    "orderBillingAddress" : {  "billingAddressLine1" : "6522 lakeview blvd apt 13113",  "billing_addressline2 " : "",  "billingCity " : "Westland",  "billingState" : "Michigan",  "billingZip" : "48185" },
+    "orderShippingAddress" : {  "shippingAddressLine1" : "6522 lakeview blvd apt 13113",  "billingAddressLine2 " : "",  "shippingCity " : "Westland",  "shippingState" : "Michigan", "shippingZip" : "48185"}
+  }

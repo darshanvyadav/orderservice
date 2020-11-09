@@ -1,8 +1,13 @@
-package com.egen.orderservice.model;
+package com.egen.orderservice.dto;
 
 import java.util.Set;
 import java.util.UUID;
 
+import com.egen.orderservice.model.OrderBillingAddress;
+import com.egen.orderservice.model.OrderItemDetails;
+import com.egen.orderservice.model.OrderPaymentDetails;
+import com.egen.orderservice.model.OrderPaymnetTransaction;
+import com.egen.orderservice.model.OrderShippingAddress;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -30,6 +35,8 @@ public class OrderRequest {
 	private OrderShippingAddress orderShippingAddress;
 	
 	private OrderBillingAddress orderBillingAddress;
+	
+	private Set<OrderPaymnetTransaction> orderPaymnetTransaction ;
 	
 	@Override
 	public String toString() {

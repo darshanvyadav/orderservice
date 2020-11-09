@@ -52,8 +52,7 @@ public class OrderPaymnetTransaction {
 	
 	private String modifiedBy = "java application";
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "payment_id", insertable = false, updatable = false )
-	private OrderPaymentDetails orderPaymentDetails;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	private OrderDetails OrderDetails;
 
 }
