@@ -33,30 +33,59 @@ public class OrderController {
 	@Autowired
 	private OrderServiceImpl orderService;
 
+	@ApiOperation(value = "Create Order", response = OrderDetails.class, notes = "Validate and Create Order request if successfull returns created order ID ")
 	@PostMapping("/create")
-	public ResponseEntity<OrderDetails> createOrder(@Valid @RequestBody OrderRequest orderRequest) {
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+	public ResponseEntity<OrderDetails> createOrder(
+			@Valid 
+			@RequestBody 
+			@ApiParam(name =  "OrderRequest", type = "OrderRequest", value = "Receive Valid Data Transfer Object",  required = true)
+			OrderRequest orderRequest) {
 		OrderDetails orderResponse = orderService.createOrder(orderRequest);
 		return ResponseEntity.ok(orderResponse);
 	}
 
 	@GetMapping(value = "/{orderID}")
-	public OrderDetails getOrderByID(@PathVariable UUID orderID) {
+	@ApiOperation(value = "Get Order by Id", response = OrderDetails.class, notes = "Fetch Order by Id and returns fetched order")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+	public ResponseEntity<OrderDetails> getOrderByID(
+			@PathVariable 
+			@ApiParam(name =  "orderID", type = "UUID", value = "Receives Order Id",  required = true)
+			UUID orderID) {
 		OrderDetails orderById = orderService.getOrderByID(orderID);
-		return orderById;
+		return ResponseEntity.ok(orderById);
 	}
 
-	@ApiOperation(value = "Orders by Customer ID", response = List.class, notes = "View list of available Orders by customer Id ")
+	@ApiOperation(value = "Orders by Customer ID", response = List.class, notes = "Returns list of available Orders by customer Id ")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(value = "/customer/{customerId}")
-	public List<OrderDetails> getOrdersByCustomer( @PathVariable String customerId ) {
-		return orderService.getOrdersByCustomerID(customerId);
+	public ResponseEntity<List<OrderDetails>> getOrdersByCustomer(
+			@ApiParam(name =  "CustomerId", type = "String", value = "Receives Customer Id of an Order",  required = true)
+			@PathVariable String customerId) {
+		 List<OrderDetails> ordersByCustomerID = orderService.getOrdersByCustomerID(customerId);
+		 return ResponseEntity.ok(ordersByCustomerID);
 	}
 	
-	@PutMapping("update")
-	public ResponseEntity<OrderDetails> updateOrderDetails(@Valid @RequestBody OrderDetails orderDetails) {
+	@PutMapping("/update")
+	@ApiOperation(value = "Update Order By ID", response = List.class, notes = "Validate and Update requested order using order ID")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+	public ResponseEntity<OrderDetails> updateOrderDetails(
+			@Valid 
+			@RequestBody 
+			@ApiParam(name =  "orderDetails", type = "OrderDetails", value = "Receives valid Order details with Id",  required = true)
+			OrderDetails orderDetails) {
 		OrderDetails updateOrder = orderService.updateOrder(orderDetails);
 		return ResponseEntity.ok(updateOrder);
 	}
