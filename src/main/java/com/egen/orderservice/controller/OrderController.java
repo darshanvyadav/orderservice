@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.egen.orderservice.dto.OrderRequest;
@@ -27,7 +28,8 @@ import io.swagger.annotations.ApiResponses;
 
 @CrossOrigin
 @RestController()
-@Api(value="Order Management System", description="Operations Related to Orders in e-commers website")
+@Api(value = "Order Management System", description = "Operations Related to Orders in e-commers website")
+@RequestMapping("/api")
 public class OrderController {
 
 	@Autowired
@@ -40,11 +42,9 @@ public class OrderController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<OrderDetails> createOrder(
-			@Valid 
-			@RequestBody 
-			@ApiParam(name =  "OrderRequest", type = "OrderRequest", value = "Receive Valid Data Transfer Object",  required = true)
-			OrderRequest orderRequest) {
+			@Valid @RequestBody @ApiParam(name = "OrderRequest", type = "OrderRequest", value = "Receive Valid Data Transfer Object", required = true) OrderRequest orderRequest) {
 		OrderDetails orderResponse = orderService.createOrder(orderRequest);
+		System.out.println(orderResponse);
 		return ResponseEntity.ok(orderResponse);
 	}
 
@@ -55,9 +55,7 @@ public class OrderController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<OrderDetails> getOrderByID(
-			@PathVariable 
-			@ApiParam(name =  "orderID", type = "UUID", value = "Receives Order Id",  required = true)
-			UUID orderID) {
+			@PathVariable @ApiParam(name = "orderID", type = "UUID", value = "Receives Order Id", required = true) UUID orderID) {
 		OrderDetails orderById = orderService.getOrderByID(orderID);
 		return ResponseEntity.ok(orderById);
 	}
@@ -69,12 +67,11 @@ public class OrderController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(value = "/customer/{customerId}")
 	public ResponseEntity<List<OrderDetails>> getOrdersByCustomer(
-			@ApiParam(name =  "CustomerId", type = "String", value = "Receives Customer Id of an Order",  required = true)
-			@PathVariable String customerId) {
-		 List<OrderDetails> ordersByCustomerID = orderService.getOrdersByCustomerID(customerId);
-		 return ResponseEntity.ok(ordersByCustomerID);
+			@ApiParam(name = "CustomerId", type = "String", value = "Receives Customer Id of an Order", required = true) @PathVariable String customerId) {
+		List<OrderDetails> ordersByCustomerID = orderService.getOrdersByCustomerID(customerId);
+		return ResponseEntity.ok(ordersByCustomerID);
 	}
-	
+
 	@PutMapping("/update")
 	@ApiOperation(value = "Update Order By ID", response = List.class, notes = "Validate and Update requested order using order ID")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
@@ -82,14 +79,9 @@ public class OrderController {
 			@ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<OrderDetails> updateOrderDetails(
-			@Valid 
-			@RequestBody 
-			@ApiParam(name =  "orderDetails", type = "OrderDetails", value = "Receives valid Order details with Id",  required = true)
-			OrderDetails orderDetails) {
+			@Valid @RequestBody @ApiParam(name = "orderDetails", type = "OrderDetails", value = "Receives valid Order details with Id", required = true) OrderDetails orderDetails) {
 		OrderDetails updateOrder = orderService.updateOrder(orderDetails);
 		return ResponseEntity.ok(updateOrder);
 	}
-	
-	
 
 }

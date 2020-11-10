@@ -37,63 +37,58 @@ public class OrderDetails {
 	@Id
 	@GeneratedValue
 	private UUID orderId;
-	
-	@NotNull(message = "orderStatus cannot be null")
+
+	@NotNull(message = "Order Status is null ")
 	private String orderStatus;
-	
-	@NotNull(message = "orderCustomerId cannot be null")
+
+	@NotNull(message = "Order customer id is null ")
 	private String orderCustomerId;
-	
-	@NotNull(message = "shippingMethod cannot be null")
+
+	@NotNull(message = "Order Shipping method is null ")
 	private String shippingMethod;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "orderDetails")
 	@JsonIgnoreProperties("orderDetails")
-	@NotNull(message = "Items List cannot be null")
 	private List<OrderItemDetails> items;
-	
-	@OneToOne( cascade = CascadeType.ALL)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "paymentId")
-	@NotNull(message = "PaymentDetails List cannot be null")
-    private OrderPaymentDetails orderPaymentDetails;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+	private OrderPaymentDetails orderPaymentDetails;
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "billingAddressId")
-	@NotNull(message = "orderBillingAddress List cannot be null")
 	private OrderBillingAddress orderBillingAddress;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "ShippingAddressId")
-	@NotNull(message = "orderShippingAddress List cannot be null")
 	private OrderShippingAddress orderShippingAddress;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "orderDetails")
 	@JsonIgnoreProperties("orderDetails")
-	private List<OrderPaymnetTransaction> orderPaymnetTransaction ;
-	
+	private List<OrderPaymnetTransaction> orderPaymnetTransaction;
+
 	@CreationTimestamp
 	@JsonIgnore
 	private LocalDateTime createTime;
-	
+
 	@UpdateTimestamp
 	@JsonIgnore
 	private LocalDateTime updatedTime;
-	
+
 	@JsonIgnore
 	private String createdBy = "java application";
-	
+
 	@JsonIgnore
 	private String modifiedBy = "java application";
-	
+
 	@Override
 	public String toString() {
-	      ObjectMapper mapper = new ObjectMapper();
-	      try {
+		ObjectMapper mapper = new ObjectMapper();
+		try {
 			return mapper.writeValueAsString(this);
 		} catch (JsonProcessingException e) {
 			return "error converting object in to string";
 		}
 	}
-	
-	
+
 }

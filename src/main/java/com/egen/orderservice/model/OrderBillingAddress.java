@@ -7,9 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,22 +30,17 @@ public class OrderBillingAddress {
 	@JsonIgnore
 	private UUID billingAddressId;
 
-	@NotNull(message = "billingAddressName cannot be null")
+	@NotNull(message = "BillingAddressName is null ")
 	private String billingAddressName;
 
-	@NotNull(message = "billingAddressLine1 cannot be null")
 	private String billingAddressLine1;
 
 	private String billingAddressLine2;
 
-	@NotNull(message = "billingCity cannot be null")
 	private String billingCity;
 
-	@NotNull(message = "billingState cannot be null")
 	private String billingState;
 
-	@Size(max = 5, min = 5, message = "not a valid zip")
-	@NotNull(message = "billing zip is not valid")
 	private Integer billingZip;
 
 	@CreationTimestamp

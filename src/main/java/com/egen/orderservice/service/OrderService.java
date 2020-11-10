@@ -7,13 +7,13 @@ import com.egen.orderservice.dto.OrderRequest;
 import com.egen.orderservice.model.OrderDetails;
 
 public interface OrderService {
-	
+
 	public OrderDetails createOrder(OrderRequest createorder);
-	
+
 	public OrderDetails getOrderByID(UUID orderID);
-	
+
 	public List<OrderDetails> getOrdersByCustomerID(String customerId);
-	
+
 	public OrderDetails updateOrder(OrderDetails orderDetails);
 
 }

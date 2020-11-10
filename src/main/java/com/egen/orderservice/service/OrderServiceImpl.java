@@ -19,7 +19,7 @@ import com.egen.orderservice.repository.OrderItemDetailsRepository;
 import com.egen.orderservice.repository.OrderPaymnetTransactionRepository;
 
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	OrderDetailsRepository orderDetailsRepository;
@@ -30,7 +30,6 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	OrderPaymnetTransactionRepository orderPaymnetTransactionRepository;
 
-	@Transactional
 	@Override
 	public OrderDetails createOrder(OrderRequest createorder) {
 
@@ -42,21 +41,22 @@ public class OrderServiceImpl implements OrderService{
 		orderDetails.setShippingMethod(createorder.getShippingMethod());
 		orderDetails.setOrderPaymentDetails(createorder.getOrderPaymentDetails());
 		OrderDetails orderResponse = orderDetailsRepository.save(orderDetails);
-		
+
 		createorder.getItems().forEach(item -> item.setOrderDetails(orderResponse));
 		List<OrderItemDetails> itemResponse = OrderItemDetailsRepository.saveAll(createorder.getItems());
-		
+
 		createorder.getOrderPaymnetTransaction().forEach(transaction -> transaction.setOrderDetails(orderDetails));
 		List<OrderPaymnetTransaction> transactionsResponse = orderPaymnetTransactionRepository
 				.saveAll(createorder.getOrderPaymnetTransaction());
-		
+
 		orderDetails.setItems(itemResponse);
 		orderDetails.setOrderPaymnetTransaction(transactionsResponse);
-		
+
+		System.out.println(orderDetails);
+
 		return orderResponse;
 	}
 
-	@Transactional
 	@Override
 	public OrderDetails getOrderByID(UUID orderID) {
 
@@ -71,11 +71,10 @@ public class OrderServiceImpl implements OrderService{
 		}
 	}
 
-	@Transactional
 	@Override
 	public List<OrderDetails> getOrdersByCustomerID(String customerId) {
 		return orderDetailsRepository.findAllByOrderCustomerId(customerId);
-		// return null;
+
 	}
 
 	@Override
