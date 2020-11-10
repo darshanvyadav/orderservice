@@ -1,5 +1,6 @@
 package com.egen.orderservice.dto;
 
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +27,7 @@ public class OrderRequest {
 	
 	private String orderCustomerId;
 	
-	private Set<OrderItemDetails> items;
+	private List<OrderItemDetails> items;
 	
 	private String shippingMethod;	 
 	

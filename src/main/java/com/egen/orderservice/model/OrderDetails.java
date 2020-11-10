@@ -1,12 +1,11 @@
 package com.egen.orderservice.model;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,7 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -44,9 +43,9 @@ public class OrderDetails {
 	
 	private String shippingMethod;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_Items_ID", referencedColumnName = "orderId")
-	private Set<OrderItemDetails> items;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "orderDetails")
+	@JsonIgnoreProperties("orderDetails")
+	private List<OrderItemDetails> items;
 	
 	@OneToOne( cascade = CascadeType.ALL)
 	@JoinColumn(name = "paymentId")
@@ -60,9 +59,9 @@ public class OrderDetails {
 	@JoinColumn(name = "ShippingAddressId")
 	private OrderShippingAddress orderShippingAddress;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "FK_Transaction_ID",  referencedColumnName = "orderId" )
-	private Set<OrderPaymnetTransaction> orderPaymnetTransaction ;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "orderDetails")
+	@JsonIgnoreProperties("orderDetails")
+	private List<OrderPaymnetTransaction> orderPaymnetTransaction ;
 	
 	@CreationTimestamp
 	@JsonIgnore

@@ -59,7 +59,9 @@ public class OrderPaymnetTransaction {
 	@JsonIgnore
 	private String modifiedBy = "java application";
 	
-//	@ManyToOne(fetch = FetchType.LAZY)
-//	private OrderDetails OrderDetails;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "FK_OrderID")
+	@JsonIgnore
+	private OrderDetails orderDetails;
 
 }
