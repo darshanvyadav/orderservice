@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -31,6 +33,18 @@ import io.swagger.annotations.ApiResponses;
 @Api(value = "Order Management System", description = "Operations Related to Orders in e-commers website")
 @RequestMapping("/api")
 public class OrderController {
+	
+	Logger logger = LoggerFactory.getLogger(OrderController.class);
+	
+	public static final String lOG_MESSAGE = "Received Request for ";
+	public static final String FETCHING = "fetching order with ";
+	public static final String CREATING = "creating order";
+	public static final String Updating = "updating order with order id ";
+	public static final String CUSTOMER_ID = "Customer ID";
+	public static final String ORDER_ID = "ORDER_ID";
+	public static final String ITEMS = ", Number Of items : ";
+	public static final String SHIPPING_NAME = ", Shipping Name : ";
+	public static final String ORDER_STAUTS = ", Order Status ";
 
 	@Autowired
 	private OrderServiceImpl orderService;
@@ -43,8 +57,9 @@ public class OrderController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<OrderDetails> createOrder(
 			@Valid @RequestBody @ApiParam(name = "OrderRequest", type = "OrderRequest", value = "Receive Valid Data Transfer Object", required = true) OrderRequest orderRequest) {
+		logger.info(lOG_MESSAGE+ CREATING +CUSTOMER_ID +  orderRequest.getOrderCustomerId() + ORDER_STAUTS + orderRequest.getOrderStatus() +
+				ITEMS + orderRequest.getItems().size() + SHIPPING_NAME+ orderRequest.getOrderShippingAddress().getShippingAddressName());
 		OrderDetails orderResponse = orderService.createOrder(orderRequest);
-		System.out.println(orderResponse);
 		return ResponseEntity.ok(orderResponse);
 	}
 
@@ -56,6 +71,7 @@ public class OrderController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<OrderDetails> getOrderByID(
 			@PathVariable @ApiParam(name = "orderID", type = "UUID", value = "Receives Order Id", required = true) UUID orderID) {
+		logger.info(lOG_MESSAGE+ ORDER_ID + orderID);
 		OrderDetails orderById = orderService.getOrderByID(orderID);
 		return ResponseEntity.ok(orderById);
 	}
@@ -68,6 +84,7 @@ public class OrderController {
 	@GetMapping(value = "/customer/{customerId}")
 	public ResponseEntity<List<OrderDetails>> getOrdersByCustomer(
 			@ApiParam(name = "CustomerId", type = "String", value = "Receives Customer Id of an Order", required = true) @PathVariable String customerId) {
+		logger.info(lOG_MESSAGE+ FETCHING +CUSTOMER_ID + customerId);
 		List<OrderDetails> ordersByCustomerID = orderService.getOrdersByCustomerID(customerId);
 		return ResponseEntity.ok(ordersByCustomerID);
 	}
@@ -80,6 +97,7 @@ public class OrderController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	public ResponseEntity<OrderDetails> updateOrderDetails(
 			@Valid @RequestBody @ApiParam(name = "orderDetails", type = "OrderDetails", value = "Receives valid Order details with Id", required = true) OrderDetails orderDetails) {
+		logger.info(lOG_MESSAGE + Updating + orderDetails.getOrderId());
 		OrderDetails updateOrder = orderService.updateOrder(orderDetails);
 		return ResponseEntity.ok(updateOrder);
 	}
