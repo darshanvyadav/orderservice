@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -37,12 +38,16 @@ public class OrderPaymentDetails {
 	@JsonIgnore
 	private UUID paymentId;
 	
+	@NotNull(message = "subtotal cannot be null")
 	private Integer subtotal;
 	
+	@NotNull(message = "tax cannot be null")
 	private Integer tax;
 	
+	@NotNull(message = "total cannot be null")
 	private Integer total;
 	
+	@NotNull(message = "paymentMethod cannot be null")
 	private String paymentMethod;
 	
 	@CreatedDate

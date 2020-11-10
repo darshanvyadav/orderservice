@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,10 +33,13 @@ public class OrderItemDetails {
 	@JsonIgnore
 	private UUID itemId;
 
+	@NotNull(message = "itemName cannot be null")
 	private String itemName;
 	
+	@NotNull(message = "itemPrice cannot be null")
 	private Float itemPrice;
 	
+	@NotNull(message = "itemDescription cannot be null")
 	private String itemDescription;
 	
 	@JsonIgnore

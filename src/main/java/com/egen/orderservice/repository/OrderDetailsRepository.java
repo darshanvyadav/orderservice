@@ -13,6 +13,6 @@ import com.egen.orderservice.model.OrderDetails;
 @Repository
 public interface OrderDetailsRepository extends JpaRepository<OrderDetails, UUID>, PagingAndSortingRepository<OrderDetails, UUID>{
 
-	public List<OrderDetails> findAllByOrderCustomerId (String customerID); //, Pageable pageable
+	public List<OrderDetails> findAllByOrderCustomerId (String customerID); //, Pageable pageable to add paging and sorting
 	
 }

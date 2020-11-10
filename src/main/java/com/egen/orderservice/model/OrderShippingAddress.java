@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -33,16 +35,22 @@ public class OrderShippingAddress {
 	@JsonIgnore
 	private UUID ShippingAddressId;
 	
+	@NotNull(message = "billingAddressName cannot be null")
 	private String ShippingAddressName;
 	
+	@NotNull(message = "billingAddressName cannot be null")
 	private String shippingAddressLine1;
 	
 	private String shippingAddressLine2;
 	
+	@NotNull(message = "billingAddressName cannot be null")
 	private String shippingCity;
 	
+	@NotNull(message = "billingAddressName cannot be null")
 	private String shippingState;
 	
+	@NotNull(message = "shippingZip cannot be null")
+	@Size(max = 5, min = 5, message = "Shipping zip is not valid")
 	private Integer shippingZip;
 	
 	@CreationTimestamp

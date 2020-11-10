@@ -78,4 +78,9 @@ public class OrderServiceImpl implements OrderService{
 		// return null;
 	}
 
+	@Override
+	public OrderDetails updateOrder(OrderDetails orderDetails) {
+		return orderDetailsRepository.save(orderDetails);
+	}
+
 }

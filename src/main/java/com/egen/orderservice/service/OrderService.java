@@ -13,5 +13,7 @@ public interface OrderService {
 	public OrderDetails getOrderByID(UUID orderID);
 	
 	public List<OrderDetails> getOrdersByCustomerID(String customerId);
+	
+	public OrderDetails updateOrder(OrderDetails orderDetails);
 
 }
